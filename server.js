@@ -1,7 +1,6 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-
 const app = express();
 const PORT = 3000;
 const usersFile = path.join(__dirname, "users.json");
@@ -48,8 +47,6 @@ app.post("/users", (req, res) => {
 app.put("/users/:id", (req, res) => {
   const userId = parseInt(req.params.id);
   const { name, age } = req.body;
-
-  // Allow updating either name or age or both
   if (typeof name === "undefined" && typeof age === "undefined") {
     return res.status(400).json({ error: "No fields to update" });
   }
@@ -70,7 +67,6 @@ app.put("/users/:id", (req, res) => {
   res.json(users[userIndex]);
 });
 
-// DELETE /users/:id → delete user by ID
 app.delete("/users/:id", (req, res) => {
   const userId = parseInt(req.params.id);
   const users = readUsers();
